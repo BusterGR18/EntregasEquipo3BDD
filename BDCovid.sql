@@ -61,6 +61,7 @@ group by cc.MUNICIPIO_RES
 select ENTIDAD_RES,  count(*) from dbo.datoscovid
 where neumonia=1 and CLASIFICACION_FINAL=6 and FECHA_DEF !='9999-99-99'
 group by ENTIDAD_RES
+
 --6. Listar por entidad el total de casos sospechosos, casos confirmados, total de defunciones en los meses de marzo a agosto 2020 y de diciembre 2020 a mayo 2021.
 select ENTIDAD_RES, count(*) as fallecidos, count(case CLASIFICACION_FINAL when 1 then CLASIFICACION_FINAL
 												when 2 then CLASIFICACION_FINAL
@@ -72,6 +73,7 @@ where (FECHA_DEF between '2020-03-01' and '2020-08-01') or (FECHA_DEF between '2
 GROUP BY ENTIDAD_RES
 
 --7. Listar los 5 municipios con el mayor número de casos confirmados en niños menos de 13 años con alguna comorbilidad reportada y cuantos de esos casos fallecieron.
+/* CODIGO BASURA
 select dmt.MUNICIPIO_RES, dmt.dm, dcomt.MUNICIPIO_RES, dcomt.dcom
 from (select top 5 MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' group by MUNICIPIO_RES)dmt
 inner join
@@ -84,7 +86,12 @@ select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECH
 select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and HIPERTENSION=1 group by MUNICIPIO_RES
 select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and INMUSUPR=1 group by MUNICIPIO_RES
 select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and OTRA_COM=1 group by MUNICIPIO_RES
+*/
 
+select top 5 ENTIDAD_RES, MUNICIPIO_RES, COUNT(*) as dcom 
+from dbo.datoscovid
+where EDAD<13 and FECHA_DEF !='9999-99-99' and (DIABETES=1 OR epoc=1 or asma=1 or INMUSUPR=1 or HIPERTENSION=1 or OTRA_COM=1)
+group by ENTIDAD_RES, MUNICIPIO_RES order by dcom desc
 
 --8. Determinar si en el año 2020 hay una mayor cantidad de defunciones menores de edad que en el año 2021 y 2022.
 select 
@@ -105,11 +112,11 @@ select
 case when ran1.Recuperado>ran2.Recuperado and ran1.Recuperado>ran3.Recuperado and ran1.Recuperado>ran4.Recuperado  then 'El range de menor de edad tiene mas recuperados'
 when  ran2.Recuperado>ran1.Recuperado and ran2.Recuperado>ran3.Recuperado and ran2.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
 when  ran3.Recuperado>ran1.Recuperado and ran3.Recuperado>ran2.Recuperado and ran3.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
-when  ran4.Recuperado>ran1.Recuperado and ran4.Recuperado>ran2.Recuperado and ran3.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
+when  ran4.Recuperado>ran1.Recuperado and ran4.Recuperado>ran2.Recuperado and ran4.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
 else 'error' 
 end
 from 
-(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF !='9999-99-99' and CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3' and EDAD<18) ran1,
-(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF !='9999-99-99' and CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3' and EDAD between '18' and '40') ran2,
-(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF !='9999-99-99' and CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3' and EDAD between '41' and '60'  ) ran3,
-(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF !='9999-99-99' and CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3' and EDAD >'60' ) ran4
+(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF ='9999-99-99' and (CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3') and EDAD<18) ran1,
+(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF ='9999-99-99' and (CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3') and EDAD between '18' and '40') ran2,
+(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF ='9999-99-99' and (CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3') and EDAD between '41' and '60'  ) ran3,
+(select count(*) as Recuperado from dbo.datoscovid where FECHA_DEF ='9999-99-99' and (CLASIFICACION_FINAL= '1' or CLASIFICACION_FINAL = '3') and EDAD >'60' ) ran4
