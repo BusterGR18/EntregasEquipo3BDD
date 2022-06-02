@@ -10,7 +10,7 @@ group by ENTIDAD_RES
 order by ENTIDAD_RES
 
 --Con 2
-
+--2. Listar los casos sospechosos por entidad
 select ENTIDAD_UM, ENTIDAD_RES,count(*) total_sospechosos from dbo.datoscovid 
 where CLASIFICACION_FINAL = 6
 group by ENTIDAD_RES, ENTIDAD_UM
@@ -18,6 +18,8 @@ order by ENTIDAD_UM
 
 
 --CON 3
+
+--3. Listar el top 5 de municipios por entidad con el mayor número de casos reportados, indicando casos sospechosos y casos confirmados.
 select top 5 MUNICIPIO_RES, ENTIDAD_RES,count(CLASIFICACION_FINAL between 1 and 3) as total_confirmado,count(CLASIFICACION_FINAL=6) as total_sospechoso
 from dbo.datoscovid
 where CLASIFICACION_FINAL between 1 and 3 or CLASIFICACION_FINAL = 6
@@ -54,8 +56,12 @@ order by cc.ENTIDAD_RES
 
 --con4 
 --4. Determinar el municipio con el mayor número de defunciones en casos confirmados.
-select top 1 cc.MUNICIPIO_RES from (select MUNICIPIO_RES from dbo.datoscovid) cc
-group by cc.MUNICIPIO_RES
+select ENTIDAD_RES, MUNICIPIO_RES, count(*) as Difuntos from dbo.datoscovid 
+where FECHA_DEF !='9999-99-99' 
+group by ENTIDAD_RES, MUNICIPIO_RES 
+order by Difuntos desc
+
+
 
 --5. Determinar por entidad, si de casos sospechosos hay defunciones reportadas asociadas a neumonia.
 select ENTIDAD_RES,  count(*) from dbo.datoscovid
@@ -79,13 +85,6 @@ from (select top 5 MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad <
 inner join
 (select MUNICIPIO_RES, COUNT(*) as dcom from dbo.datoscovid where FECHA_DEF !='9999-99-99' and DIABETES=1 OR epoc=1 or asma=1 or INMUSUPR=1 or HIPERTENSION=1 or OTRA_COM=1 group by MUNICIPIO_RES) dcomt
 on dmt.MUNICIPIO_RES=dcomt.MUNICIPIO_RES 
-
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and DIABETES=1 group by MUNICIPIO_RES
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and epoc=1 group by MUNICIPIO_RES
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and ASMA=1 group by MUNICIPIO_RES
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and HIPERTENSION=1 group by MUNICIPIO_RES
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and INMUSUPR=1 group by MUNICIPIO_RES
-select MUNICIPIO_RES, count(*)as dm from dbo.datoscovid where edad < 13 and FECHA_DEF !='9999-99-99' and OTRA_COM=1 group by MUNICIPIO_RES
 */
 
 select top 5 ENTIDAD_RES, MUNICIPIO_RES, COUNT(*) as dcom 
@@ -107,12 +106,13 @@ from (select count(*) as DIFUNTOS2020 from dbo.datoscovid where edad<18 and FECH
 select count(*) as CLAB21 from dbo.datoscovid where CLASIFICACION_FINAL='3' and  FECHA_INGRESO between '2021-01-01' and '2021-12-31'
 select count(*) as CLAB20 from dbo.datoscovid where CLASIFICACION_FINAL='3' and  FECHA_INGRESO between '2020-01-01' and '2020-12-31'
 
+
 --10. Determinar en que rango de edad: menor de edad, 19 a 40, 40 a 60 o mayor de 60 hay mas casos reportados que se hayan recuperado. 
 select 
 case when ran1.Recuperado>ran2.Recuperado and ran1.Recuperado>ran3.Recuperado and ran1.Recuperado>ran4.Recuperado  then 'El range de menor de edad tiene mas recuperados'
 when  ran2.Recuperado>ran1.Recuperado and ran2.Recuperado>ran3.Recuperado and ran2.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
 when  ran3.Recuperado>ran1.Recuperado and ran3.Recuperado>ran2.Recuperado and ran3.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
-when  ran4.Recuperado>ran1.Recuperado and ran4.Recuperado>ran2.Recuperado and ran4.Recuperado>ran4.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
+when  ran4.Recuperado>ran1.Recuperado and ran4.Recuperado>ran2.Recuperado and ran4.Recuperado>ran3.Recuperado then 'El rango de 18 a 40 tiene mas recuperados'
 else 'error' 
 end
 from 
