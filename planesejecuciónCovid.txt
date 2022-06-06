@@ -1,0 +1,1 @@
+PDF y Script SQL se encuentra en el folder nombrado 'Planes ejecucion' en la raíz
