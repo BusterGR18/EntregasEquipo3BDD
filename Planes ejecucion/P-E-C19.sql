@@ -72,7 +72,17 @@ from (select count(*) as DIFUNTOS2020 from dbo.datoscovid where edad<18 and FECH
 
 
 --9. Determinar si en el año 2021 hay un pocentaje mayor al 60 de casos reportados que son confirmados por estudios de laboratorio en comparación al año 2020.
-
+Select t1.Confirmados_2020,t2.Confirmados_2021,(((t2.Confirmados_2021-t1.Confirmados_2020)*100)/Confirmados_2020)as Porcentaje
+from(select count(case CLASIFICACION_FINAL when 1 then CLASIFICACION_FINAL
+												when 2 then CLASIFICACION_FINAL
+												when 3 then CLASIFICACION_FINAL
+								end) as Confirmados_2020 
+								from dbo.datoscovid where FECHA_SINTOMAS between '2020-01-01' and '2020-12-31') as t1,
+								(select count(case CLASIFICACION_FINAL when 1 then CLASIFICACION_FINAL
+												when 2 then CLASIFICACION_FINAL
+												when 3 then CLASIFICACION_FINAL
+								end) as Confirmados_2021 
+								from dbo.datoscovid where FECHA_SINTOMAS between '2021-01-01' and '2021-12-31') as t2 
 
 --10. Determinar en que rango de edad: menor de edad, 19 a 40, 40 a 60 o mayor de 60 hay mas casos reportados que se hayan recuperado. 
 --El uso de 'case' representa la solucion más facil a los grupos de edad por lo	que el añadir las condiciones de la clasifcacion de la consulta es
