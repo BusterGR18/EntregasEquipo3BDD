@@ -13,6 +13,10 @@ CREATE NONCLUSTERED INDEX [IX_DatosCovid_CLASIFICACION_FINAL_ENTIDAD]
 ON dbo.datoscovid (CLASIFICACION_FINAL)
 INCLUDE ([MUNICIPIO_RES],[ENTIDAD_RES])
 
+CREATE NONCLUSTERED INDEX [IX_DatosCovid_EDAD_DEF]
+ON [dbo].[datoscovid] ([FECHA_DEF])
+INCLUDE ([EDAD])
+
 --Copia de la tabla sin llaves
 select *  into copiacovidh from [covidHistorico].[dbo].[datoscovid]
 
