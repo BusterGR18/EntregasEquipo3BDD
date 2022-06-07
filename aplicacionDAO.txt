@@ -1,0 +1,9 @@
+Integrante:
+Ramirez Martinez Brayan Gustavo
+
+Ruta general:
+/ProyectoBDDJava
+Codigo:
+ProyectoBDDJava/ProyectoBDD/
+Scripts:
+ProyectoBDDJava/Recursos/
