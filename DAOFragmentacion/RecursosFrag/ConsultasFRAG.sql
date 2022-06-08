@@ -1,24 +1,69 @@
-/*2. Listar datos del empleado que atendió más ordenes por territorio.
-3. Listar los datos del cliente con más ordenes solicitadas en la región “North America”.
-4. Listar el producto más solicitado en la región “Europe”.
-5. Listar las ofertas que tienen los productos de la categoría “Bikes”
-6. Listar los 3 productos menos solicitados en la región “Pacific”
-7. Actualizar la subcategoría de los productos con productId del 1 al 4 a la subcategoría valida para el tipo de producto.
-8. Listar los productos que no estén disponibles a la venta.
-9. Listar los clientes del territorio 1 y 4 que no tengan asociado un valor en personId
-10. Listar los clientes del territorio 1 que tengan ordenes en otro territorio*/
+--2. Listar datos del empleado que atendiÃ³ mÃ¡s ordenes por territorio.
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=1 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=2 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---2 
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=3 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---3 
-select * from sales.SalesTerritory
-select * from Sales.SalesOrderHeader where (TerritoryID = 7 or TerritoryID = 8) 
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=4 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---4
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=5 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---5
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=6 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---6
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=7 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 
---7
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=8 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
+
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=9 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
+
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=10 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
+
+--3. Listar los datos del cliente con mÃ¡s ordenes solicitadas en la regiÃ³n â€œNorth Americaâ€.
+--4. Listar el producto mÃ¡s solicitado en la regiÃ³n â€œEuropeâ€.
+--5. Listar las ofertas que tienen los productos de la categorÃ­a â€œBikesâ€
+--6. Listar los 3 productos menos solicitados en la regiÃ³n â€œPacificâ€
+--7. Actualizar la subcategorÃ­a de los productos con productId del 1 al 4 a la subcategorÃ­a valida para el tipo de producto.
+--8. Listar los productos que no estÃ©n disponibles a la venta.
+--9. Listar los clientes del territorio 1 y 4 que no tengan asociado un valor en personId
+--10. Listar los clientes del territorio 1 que tengan ordenes en otro territorio*
