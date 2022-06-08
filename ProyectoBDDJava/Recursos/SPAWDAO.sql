@@ -5,11 +5,38 @@ GO
 CREATE PROCEDURE sp_insercion_SOD_TEST(
 @ProductID varchar(20),
 @CanOrden varchar(20),
-@SALIDAGEN1 varchar(20) output
+@Salida_ins_sod varchar(20) output
 )
 AS
 BEGIN
 select * from Sales.SalesOrderDetail
+
+--Comprobacion de inventario del producto deseado en MySQL
+
+--Codigo para insercion en SOD
+DECLARE @SalesOrderID int
+DECLARE @CarrierTN nvarchar(25)
+
+DECLARE @SpecialOfferID int
+DECLARE @PrecioL varchar(25)
+DECLARE @DescuentoUni varchar(25)
+
+SET @SalesOrderID =  (SELECT max(SalesOrderID)+1 FROM Sales.SalesOrderDetail)
+
+
+INSERT INTO SALES.SalesOrderDetail(SalesOrderID,CarrierTrackingNumber,OrderQty,ProductID,SpecialOfferID,
+	UnitPrice,UnitPriceDiscount,rowguid,ModifiedDate) 
+	VALUES(@SalesOrderID,@CarrierTN,@CanOrden,@ProductID,@SpecialOfferID,@PrecioL,@DescuentoUni,NEWID(),SYSDATETIME())
+
+IF EXISTS (SELECT SalesOrderID FROM SALES.SalesOrderDetail WHERE SalesOrderID = @SalesOrderID) 
+	BEGIN 
+		SET @Salida_ins_sod = 'Insercion exitosa' 
+	END
+	ELSE -- No se encuentra el valor de la insercion
+	BEGIN
+		SET @Salida_ins_sod = 'Error'		
+	END
+		
 END
 GO
 
@@ -52,12 +79,12 @@ BEGIN
 END 
 GO
 
+
+-- drop procedure sp_insercion_SOH
+/* --Codigo prueba para verificar insercion de SOH
 delete from Sales.SalesOrderHeader where SalesOrderID =75136
-
-drop procedure sp_insercion_SOH
-
 exec sp_insercion_SOH 8,5,1,27918,21592,21592,5,''
-
 
 SELECT xd = MAX(SalesOrderID) FROM Sales.SalesOrderHeader;
 SELECT *  FROM Sales.SalesOrderHeader;
+*/
