@@ -1,5 +1,5 @@
 package DAO;
-import java.sql.Date;
+import java.sql.*;
 //Setters y getters para Production.Product
 public class pprod {
     private int ProductID;
@@ -18,7 +18,7 @@ public class pprod {
     private float Weight;
     private int DaysToManufacture;
     private String ProductLine;
-    private String Clase;
+    //private String Class;
     private String Style;
     private int ProductSubcategoryID;
     private int ProductModelID;
@@ -27,6 +27,7 @@ public class pprod {
     private Date DiscontinuedDate;
     private String rowguid;
     private Date ModifiedDate;
+
 
 
     public int getProductID() {
@@ -156,14 +157,7 @@ public class pprod {
     public void setProductLine(String ProductLine) {
         this.ProductLine = ProductLine;
     }
-
-    public String getClase() {
-        return this.Clase;
-    }
-
-    public void setClase(String Clase) {
-        this.Clase = Clase;
-    }
+   
 
     public String getStyle() {
         return this.Style;
@@ -228,5 +222,6 @@ public class pprod {
     public void setModifiedDate(Date ModifiedDate) {
         this.ModifiedDate = ModifiedDate;
     }
+    
     
 }
