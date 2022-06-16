@@ -4,9 +4,9 @@ Use AsiaPacific
 GO
 create schema Sales
 GO
+select * into AsiaPacific.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID=9
 select * into AsiaPacific.Sales.SalesOrderHeader from AdventureWorks2019.Sales.SalesOrderHeader where TerritoryID=9
 select * into AsiaPacific.Sales.SalesPerson from AdventureWorks2019.Sales.SalesPerson where TerritoryID=9
-select * into AsiaPacific.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID=9
 --SalesOrderDetail
 select sod.SalesOrderID,sod.SalesOrderDetailID,sod.CarrierTrackingNumber,sod.OrderQty,sod.ProductID,
 sod.SpecialOfferID,sod.UnitPrice,sod.UnitPriceDiscount,sod.LineTotal,sod.rowguid,sod.ModifiedDate into AsiaPacific.Sales.SalesOrderDetail
@@ -23,3 +23,5 @@ on mv.IMV=sp.BusinessEntityID
 --Consulta 6
 Select TOP 3 WITH TIES SalesOrderDetail.ProductID, SUM(SalesOrderDetail.OrderQty) as Unidades_vendidas from Sales.SalesOrderDetail
 Group by SalesOrderDetail.ProductID Order by Unidades_vendidas asc
+
+select * from sales.Customer

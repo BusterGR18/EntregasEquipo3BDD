@@ -7,3 +7,5 @@ Codigo:
 DAOFragmentacion/FragAWDAO
 Scripts:
 DAOFragmentacion/RecursosFrag
+PDF:
+DAOFragmentacion/RecursosFrag

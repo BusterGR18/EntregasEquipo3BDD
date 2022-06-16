@@ -4,9 +4,9 @@ use NorthAmerica
 GO
 create schema Sales
 GO
+select * into NorthAmerica.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID between 1 and 6
 select * into NorthAmerica.Sales.SalesOrderHeader from AdventureWorks2019.Sales.SalesOrderHeader where TerritoryID between 1 and 6
 select * into NorthAmerica.Sales.SalesPerson from AdventureWorks2019.Sales.SalesPerson where TerritoryID between 1 and 6
-select * into NorthAmerica.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID between 1 and 6
 --SalesOrderDetail
 select sod.SalesOrderID,sod.SalesOrderDetailID,sod.CarrierTrackingNumber,sod.OrderQty,sod.ProductID,
 sod.SpecialOfferID,sod.UnitPrice,sod.UnitPriceDiscount,sod.LineTotal,sod.rowguid,sod.ModifiedDate into NorthAmerica.Sales.SalesOrderDetail
@@ -18,9 +18,9 @@ Use Europe
 GO
 create schema Sales
 GO
+select * into Europe.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID between 7 and 10 and TerritoryID !=9
 select * into Europe.Sales.SalesOrderHeader from AdventureWorks2019.Sales.SalesOrderHeader where TerritoryID between 7 and 10 and TerritoryID !=9
 select * into Europe.Sales.SalesPerson from AdventureWorks2019.Sales.SalesPerson where TerritoryID between 7 and 10 and TerritoryID !=9
-select * into Europe.Sales.Customer from AdventureWorks2019.Sales.Customer where TerritoryID between 7 and 10 and TerritoryID !=9
 --SalesOrderDetail
 select sod.SalesOrderID,sod.SalesOrderDetailID,sod.CarrierTrackingNumber,sod.OrderQty,sod.ProductID,
 sod.SpecialOfferID,sod.UnitPrice,sod.UnitPriceDiscount,sod.LineTotal,sod.rowguid,sod.ModifiedDate into Europe.Sales.SalesOrderDetail
