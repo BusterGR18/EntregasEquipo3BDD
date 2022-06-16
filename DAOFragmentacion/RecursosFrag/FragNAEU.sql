@@ -28,51 +28,44 @@ from AdventureWorks2019.Sales.SalesOrderDetail as sod left join
 (select * from AdventureWorks2019.Sales.SalesOrderHeader where TerritoryID between 7 and 10 and TerritoryID !=9) as oh on sod.SalesOrderID=oh.SalesOrderID
 GO
 
+--Consultas NA:
 --Consulta 2:
+--2. Listar datos del empleado que atendió más ordenes por territorio.
 use NorthAmerica
 select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=1 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID between 1 and 6 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
 inner join 
 (select * from Sales.SalesPerson) sp 
 on mv.IMV=sp.BusinessEntityID 
+
+
+--consulta 3
+--3. Listar los datos del cliente con más ordenes solicitadas en la región “North America”.
 select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=2 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from NorthAmerica.Sales.SalesOrderHeader 
+group by SalesPersonID order by TV desc) mv
 inner join 
-(select * from Sales.SalesPerson) sp 
-on mv.IMV=sp.BusinessEntityID 
-select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=3 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
-inner join 
-(select * from Sales.SalesPerson) sp 
-on mv.IMV=sp.BusinessEntityID 
-select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=4 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
-inner join 
-(select * from Sales.SalesPerson) sp 
-on mv.IMV=sp.BusinessEntityID 
-select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=5 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
-inner join 
-(select * from Sales.SalesPerson) sp 
-on mv.IMV=sp.BusinessEntityID 
-select * from 
-(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=6 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
-inner join 
-(select * from Sales.SalesPerson where TerritoryID=6) sp 
+(select * from NorthAmerica.Sales.SalesPerson) sp 
 on mv.IMV=sp.BusinessEntityID 
 
 --Consulta 9
 --9. Listar los clientes del territorio 1 y 4 que no tengan asociado un valor en personId
 Use NorthAmerica
-SELECT * FROM NorthAmerica.sales.CUSTOMER WHERE TerritoryID BETWEEN 1 AND 4 and TerritoryID!=2 and TerritoryID!=3 AND PersonID IS NULL
+SELECT * FROM NorthAmerica.sales.CUSTOMER 
+WHERE TerritoryID BETWEEN 1 AND 4 and TerritoryID!=2 and TerritoryID!=3 AND PersonID IS NULL
+--10. Listar los clientes del territorio 1 que tengan ordenes en otro territorio*
 
+--Consultas Europeas:
+
+--Consulta 2
+--2. Listar datos del empleado que atendió más ordenes por territorio.
+use Europe
+select * from 
+(select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID between 7 and 10 and TerritoryID!=9 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
+inner join 
+(select * from Sales.SalesPerson) sp 
+on mv.IMV=sp.BusinessEntityID 
 --Consulta 4
+--4. Listar el producto más solicitado en la región “Europe”.
 use Europe
 Select TOP 1 WITH TIES ProductID, SUM(SalesOrderDetail.OrderQty) as Unidades_vendidas from Sales.SalesOrderDetail Group by SalesOrderDetail.ProductID Order by Unidades_vendidas desc
-
-
---Consulta 6
-Select TOP 3 WITH TIES SalesOrderDetail.ProductID, SUM(SalesOrderDetail.OrderQty) as Unidades_vendidas from Sales.SalesOrderDetail
-Group by SalesOrderDetail.ProductID Order by Unidades_vendidas asc
-SELECT * FROM OPENQUERY(INS1SR,'Select TOP 3 WITH TIES SalesOrderDetail.ProductID, SUM(SalesOrderDetail.OrderQty) as Unidades_vendidas from AsiaPacific.Sales.SalesOrderDetail
-Group by SalesOrderDetail.ProductID Order by Unidades_vendidas asc')

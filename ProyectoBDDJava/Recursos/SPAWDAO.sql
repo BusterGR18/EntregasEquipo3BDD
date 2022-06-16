@@ -12,7 +12,8 @@ BEGIN
 select * from Sales.SalesOrderDetail
 
 --Comprobacion de inventario del producto deseado en MySQL
-
+/*select EXISTS(OPENQUERY(VINCMYSQL,'select * from ProductIventory where ProductID=@ProductID' ))
+*/
 --Codigo para insercion en SOD
 DECLARE @SalesOrderID int
 DECLARE @CarrierTN nvarchar(25)

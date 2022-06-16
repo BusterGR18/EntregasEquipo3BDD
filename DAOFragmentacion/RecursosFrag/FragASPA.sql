@@ -13,6 +13,9 @@ sod.SpecialOfferID,sod.UnitPrice,sod.UnitPriceDiscount,sod.LineTotal,sod.rowguid
 from AdventureWorks2019.Sales.SalesOrderDetail as sod left join
 (select * from AdventureWorks2019.Sales.SalesOrderHeader where TerritoryID=9) as oh on sod.SalesOrderID=oh.SalesOrderID
 GO
+
+--Consulta 2
+--2. Listar datos del empleado que atendió más ordenes por territorio.
 select * from 
 (select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  TerritoryID=9 and SalesPersonID>1 group by SalesPersonID order by TV desc) mv
 inner join 
@@ -21,7 +24,10 @@ on mv.IMV=sp.BusinessEntityID
 
 
 --Consulta 6
-Select TOP 3 WITH TIES SalesOrderDetail.ProductID, SUM(SalesOrderDetail.OrderQty) as Unidades_vendidas from Sales.SalesOrderDetail
-Group by SalesOrderDetail.ProductID Order by Unidades_vendidas asc
+--6. Listar los 3 productos menos solicitados en la región “Pacific”
+Select TOP 3 WITH TIES SalesOrderDetail.ProductID, SUM(SalesOrderDetail.OrderQty) as Ventas 
+from AsiaPacific.Sales.SalesOrderDetail
+Group by SalesOrderDetail.ProductID 
+Order by Ventas asc
 
 select * from sales.Customer

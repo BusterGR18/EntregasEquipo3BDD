@@ -3,6 +3,14 @@ import DAO.CNADAO;
 import ImpDAO.ImplConsultasNA;
 
 public class DemoConsultasNA {
+    public static void listcon2(){                
+        try{
+            CNADAO dao = new ImplConsultasNA();
+            dao.consulta_2();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void listcon3(){                
         try{
             CNADAO dao = new ImplConsultasNA();

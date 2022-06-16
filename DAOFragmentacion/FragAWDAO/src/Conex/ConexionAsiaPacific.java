@@ -2,7 +2,7 @@ package Conex;
 import java.sql.*;
 public class ConexionAsiaPacific {
     protected Connection conexion;
-    private final String connectionUrl = "jdbc:sqlserver://localhost:1433;instanceName=IDEAPAD-GAMING-\\MSSQL1;databaseName=AsiaPacific;user=sa;password=cacas;encrypt=true;trustServerCertificate=true";
+    private final String connectionUrl = "jdbc:sqlserver://localhost:1434;instanceName=IDEAPAD-GAMING-\\MSSQL1;databaseName=AsiaPacific;user=sa;password=cacas;encrypt=true;trustServerCertificate=true";
     public void conectar(){
         try  {
             conexion = DriverManager.getConnection(connectionUrl);             
