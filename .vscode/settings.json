@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "DAOFragmentacion/FragAWDAO/lib/mssql-jdbc-10.2.0.jre8.jar",
+        "DAOFragmentacion/FragAWDAO/lib/mssql-jdbc-10.2.0.jre11.jar",
+        "DAOFragmentacion/FragAWDAO/lib/mssql-jdbc-10.2.0.jre17.jar"
+    ]
+}
