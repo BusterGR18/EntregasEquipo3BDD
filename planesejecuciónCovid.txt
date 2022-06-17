@@ -4,4 +4,5 @@ Ramirez Martinez Brayan Gustavo
 
 PDF "Planes de ejecucion-DBCovid.pdf" 
 Script "P-E-C19.sql" 
+Script "CbasePE.sql"
 Ubicados en el folder: 'Planes ejecucion' en la raíz del repositorio
