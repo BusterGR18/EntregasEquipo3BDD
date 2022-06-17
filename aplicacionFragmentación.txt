@@ -6,6 +6,12 @@ Ruta general:
 Codigo:
 DAOFragmentacion/FragAWDAO
 Scripts:
-DAOFragmentacion/RecursosFrag
+DAOFragmentacion/RecursosFrag/ConsultasFRAG.sql
+DAOFragmentacion/RecursosFrag/FragASPA.sql
+DAOFragmentacion/RecursosFrag/FragNAEU.sql
 PDF:
-DAOFragmentacion/RecursosFrag
+DAOFragmentacion/RecursosFrag/Fragmentacion.pdf
+Backups:
+DAOFragmentacion/RecursosFrag/AsiaPacific.bak
+DAOFragmentacion/RecursosFrag/Europe.bak
+DAOFragmentacion/RecursosFrag/NorthAmerica.bak
