@@ -95,7 +95,7 @@ public class App {
                 break;
                 case 3:
                     System.out.println("Consulta 3");
-                    System.out.println("3. Listar los datos del cliente con mas ordenes solicitadas en la regón “North America”");
+                    System.out.println("3. Listar los datos del cliente con mas ordenes solicitadas en la region North America");
                     DemoConsultasNA.listcon3();
                 break;
                 case 4:

@@ -9,7 +9,7 @@ public class ImplConsultasAW extends ConexionI2SS implements CAWDAO {
     public void consulta_7() throws Exception{                    
         try{
             this.conectar();
-            CallableStatement csisoh = conexion.prepareCall("{call sp_frag7(?,?)}");            
+            CallableStatement csisoh = conexion.prepareCall("{call sp_frag7(?)}");            
             csisoh.registerOutParameter(1, java.sql.Types.VARCHAR);
             csisoh.executeUpdate();
             String res =csisoh.getString(1);

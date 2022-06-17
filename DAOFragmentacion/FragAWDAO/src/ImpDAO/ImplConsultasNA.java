@@ -38,7 +38,7 @@ public class ImplConsultasNA extends ConexionNA implements CNADAO{
         // TODO Auto-generated method stub
         try{
             this.conectar();
-            PreparedStatement st = this.conexion.prepareStatement("select * from (select top 1 SalesPersonID IMV, count(SalesOrderID) TV from NorthAmerica.Sales.SalesOrderHeader group by SalesPersonID order by TV desc) mv inner join (select * from NorthAmerica.Sales.SalesPerson) sp on mv.IMV=sp.BusinessEntityID ");            
+            PreparedStatement st = this.conexion.prepareStatement("use NorthAmerica select * from (select top 1 SalesPersonID IMV, count(SalesOrderID) TV from Sales.SalesOrderHeader where  SalesPersonID>1 group by SalesPersonID order by TV desc) mv inner join (select * from Sales.SalesPerson) sp on mv.IMV=sp.BusinessEntityID  ");            
             ResultSet rs = st.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int numberOfColumns = rsmd.getColumnCount();
